@@ -48,11 +48,3 @@ Paddle.prototype.move = function (y, canvas) {
 		this.y = y;
 	}
 };
-
-Paddle.prototype.moveUp = function() {
-	this.y -= 15; //TODO: extracts to consts
-};
-
-Paddle.prototype.moveDown = function() {
-	this.y += 15; //TODO: extract to consts
-};

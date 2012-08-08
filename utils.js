@@ -7,6 +7,20 @@ utils.intersects = function (rectA, rectB) {
 			rectB.y + rectB.height < rectA.y);
 };
 
+utils.inSegment = function (point, segment) {
+	if ((point >= segment.k) && (point <= segment.l)) {
+		return true;
+	}
+	return false;
+};
+
+utils.intersectsWithPaddle = function (rectA, circle) {
+	return !(rectA.x + rectA.width < circle.x - circle.radius ||
+			circle.x + circle.radius < rectA.x ||
+			rectA.y + rectA.height < circle.y - circle.radius ||
+			circle.y + circle.radius < rectA.y);
+};
+
 utils.captureMouse = function (element) {
 	var mouse = {x: 0, y: 0};
 	element.addEventListener('mousemove', function (event) {

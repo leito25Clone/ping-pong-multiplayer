@@ -42,7 +42,7 @@ window.onload = function () {
 	window.addEventListener('keydown', onKeyPressed, false);
 	canvas.addEventListener('mousemove', function () {
 		paddle.move(mouse.y, canvas);
-		console.log("x: " + mouse.x + ", y: " + mouse.y);
+		//console.log("x: " + mouse.x + ", y: " + mouse.y);
 	}, false);
 
 	if (!window.requestAnimationFrame) {
@@ -68,25 +68,21 @@ window.onload = function () {
 			redBall.speedX = tempX;
 			redBall.speedY = tempY;
 		}
-/*
-		if (utils.intersects(greenBall.getBounds(), redBall.getBounds()) === true) {
-			var tempX = greenBall.speedX,
-				tempY = greenBall.speedY;
-			greenBall.speedX = redBall.speedX;
-			greenBall.speedY = redBall.speedY;
-			redBall.speedX = tempX;
-			redBall.speedY = tempY;
-			
-			console.log("Intersect: Red Ball & Green Ball");
-		}
-*/
-		if (utils.intersects(greenBall.getBounds(), paddle.getBounds()) === true) {
+
+		greenBall.testCollision(paddle.getBounds());
+		redBall.testCollision(paddle.getBounds());
+		/*
+
+				if (utils.intersectsWithPaddle(paddle.getBounds(), 
+				{x: greenBall.x, y: greenBall.y, radius: greenBall.radius}) === true) {
+			greenBall.x += 
 			greenBall.speedX *= -1;
 			greenBall.speedY *= -1;
 			console.log("Intersect: Green Ball & Paddle");
-		}
-
-		if (utils.intersects(redBall.getBounds(), paddle.getBounds()) === true) {
+		} */
+/*
+		if (utils.intersectsWithPaddle(paddle.getBounds(), 
+				{x: redBall.x, y: redBall.y, radius: redBall.radius}) === true) {
 			redBall.speedX *= -1;
 			redBall.speedY *= -1;
 			console.log("Intersect: Red Ball & Paddle");

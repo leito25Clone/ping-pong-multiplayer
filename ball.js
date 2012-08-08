@@ -73,18 +73,37 @@ Ball.prototype.testBorderCollision = function(canvas) {
 		this.y -= (this.radius - outBottom);
 		this.speedY *= -1;
 	}
-	/* || 
-		( < this.radius)) {
-		this.speedX *= -1;
-	}
-	if (( < this.radius) || 
-		(utils.getDistance({x:this.x,y:this.y}, {x:this.x,y:canvas.height}) < this.radius)) {
-		this.speedY *= -1;
-	}*/
 }
 
 Ball.prototype.testCollision = function(bounds) {
 	
+	var outLeft 	= utils.getDistance({x:this.x,y:this.y}, {x:bounds.x,y:this.y}),
+		outRight 	= utils.getDistance({x:this.x,y:this.y}, {x:bounds.x + bounds.width, y: this.y}),
+		outTop 		= utils.getDistance({x:this.x,y:this.y}, {x:this.x,y:bounds.y}),
+		outBottom 	= utils.getDistance({x:this.x,y:this.y}, {x:this.x,y:bounds.y + bounds.height}),
+		delta 		= 0.10;
+	
+	if ((outLeft < this.radius) 
+			&& (utils.inSegment(this.y, {k: bounds.y,l:bounds.y+bounds.height}))) {
+		this.x -= (this.radius - outLeft);
+		this.speedX *= -1;
+	}
+	if ((outRight < this.radius) 
+			&& (utils.inSegment(this.y, {k: bounds.y,l:bounds.y+bounds.height}))) {
+		this.x += (this.radius - outRight);
+		this.speedX *= -1;
+	}
+	if ((outTop < this.radius) 
+			&& (utils.inSegment(this.x, {k: bounds.x,l:bounds.x+bounds.width}))) {
+		this.y -= (this.radius - outTop);
+		this.speedY *= -1;
+	}
+	if ((outBottom < this.radius) 
+			&& utils.inSegment(this.x, {k: bounds.x,l:bounds.x+bounds.width})){
+		this.y += (this.radius - outBottom);
+		this.speedY *= -1;
+	}
+	/*
 	var this_bounds = this.getBounds();
 
 	if (((this_bounds.x + this_bounds.width) > bounds.x) && (bounds.x > this_bounds.x)) {
@@ -94,6 +113,7 @@ Ball.prototype.testCollision = function(bounds) {
 	if (((this_bounds.y + this_bounds.height) > bounds.y) && (bounds.y > this_bounds.y)) {
 		this.speedY *= -1;	
 	}
+	*/
 };
 
 Ball.prototype.move = function() {
