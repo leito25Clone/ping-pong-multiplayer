@@ -60,7 +60,7 @@ window.onload = function () {
 		context.clearRect(0, 0, canvas.width, canvas.height);
 
 		if (utils.getDistance({x: greenBall.x, y: greenBall.y},{x: redBall.x, y:redBall.y}) 
-				< (greenBall.radius * 2) ) {
+				< (greenBall.radius + redBall.radius) ) {
 			var tempX = greenBall.speedX,
 				tempY = greenBall.speedY;
 			greenBall.speedX = redBall.speedX;
