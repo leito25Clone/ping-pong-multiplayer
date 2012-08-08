@@ -59,10 +59,18 @@ window.onload = function () {
 		window.requestAnimationFrame(drawFrame, canvas);
 		context.clearRect(0, 0, canvas.width, canvas.height);
 
-		if (utils.getDistance({x: greenBall.x, y: greenBall.y},{x: redBall.x, y:redBall.y}) 
-				< (greenBall.radius + redBall.radius) ) {
+		var distanceBetweenCircles = utils.getDistance({x: greenBall.x, y: greenBall.y},{x: redBall.x, y:redBall.y});
+		if ( distanceBetweenCircles	< (greenBall.radius + redBall.radius) ) {
+			
+			//TODO: improve deltas calculation
 			var tempX = greenBall.speedX,
-				tempY = greenBall.speedY;
+				tempY = greenBall.speedY,
+				deltaX = Math.abs(Math.abs(greenBall.x - redBall.x) - Math.sqrt(distanceBetweenCircles)),
+				deltaY = Math.abs(Math.abs(greenBall.y - redBall.y) - Math.sqrt(distanceBetweenCircles));
+	
+			(tempX > 0) ? greenBall.x -= deltaX : greenBall.x += deltaX;
+			(tempY > 0) ? greenBall.y -= deltaY : greenBall.y += deltaY;
+
 			greenBall.speedX = redBall.speedX;
 			greenBall.speedY = redBall.speedY;
 			redBall.speedX = tempX;
@@ -71,26 +79,7 @@ window.onload = function () {
 
 		greenBall.testCollision(paddle.getBounds());
 		redBall.testCollision(paddle.getBounds());
-		/*
 
-				if (utils.intersectsWithPaddle(paddle.getBounds(), 
-				{x: greenBall.x, y: greenBall.y, radius: greenBall.radius}) === true) {
-			greenBall.x += 
-			greenBall.speedX *= -1;
-			greenBall.speedY *= -1;
-			console.log("Intersect: Green Ball & Paddle");
-		} */
-/*
-		if (utils.intersectsWithPaddle(paddle.getBounds(), 
-				{x: redBall.x, y: redBall.y, radius: redBall.radius}) === true) {
-			redBall.speedX *= -1;
-			redBall.speedY *= -1;
-			console.log("Intersect: Red Ball & Paddle");
-		}
-/*
-		greenBall.testCollision(redBall.getBounds());
-		redBall.testCollision(greenBall.getBounds());
-*/		
 		greenBall.testBorderCollision(canvas);
 		greenBall.move();
 		greenBall.draw(context);
