@@ -59,6 +59,16 @@ window.onload = function () {
 		window.requestAnimationFrame(drawFrame, canvas);
 		context.clearRect(0, 0, canvas.width, canvas.height);
 
+		if (utils.getDistance({x: greenBall.x, y: greenBall.y},{x: redBall.x, y:redBall.y}) 
+				< (greenBall.radius * 2) ) {
+			var tempX = greenBall.speedX,
+				tempY = greenBall.speedY;
+			greenBall.speedX = redBall.speedX;
+			greenBall.speedY = redBall.speedY;
+			redBall.speedX = tempX;
+			redBall.speedY = tempY;
+		}
+/*
 		if (utils.intersects(greenBall.getBounds(), redBall.getBounds()) === true) {
 			var tempX = greenBall.speedX,
 				tempY = greenBall.speedY;
@@ -69,7 +79,7 @@ window.onload = function () {
 			
 			console.log("Intersect: Red Ball & Green Ball");
 		}
-
+*/
 		if (utils.intersects(greenBall.getBounds(), paddle.getBounds()) === true) {
 			greenBall.speedX *= -1;
 			greenBall.speedY *= -1;
