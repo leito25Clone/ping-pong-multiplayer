@@ -1,14 +1,5 @@
-<html>
-   <head>
-      <title>Box2dWeb Demo</title>
-   </head>
-   <body onload="init();">
-      <canvas id="canvas" width="600" height="400" style="background-color:#333333;" ></canvas>
-   </body>
-   <script type="text/javascript" src="Box2dWeb-2.1.a.3.min.js"></script>
-   <script type="text/javascript">
-      var paddle;
-      function init() {
+ var paddle;
+ window.onload = function init() {
          var   b2Vec2 = Box2D.Common.Math.b2Vec2
             ,  b2AABB = Box2D.Collision.b2AABB
          	,	b2BodyDef = Box2D.Dynamics.b2BodyDef
@@ -267,8 +258,3 @@
 
 
       };
-   
-   </script>
-   
-   
-</html>
