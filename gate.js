@@ -30,6 +30,9 @@ GAME.Gate = (function () {
       Constr.prototype.Goal = function () {
         this.goals+=1;
       };
+      Constr.prototype.ResetGoalsCount = function () {
+        this.goals = 0;
+      };
 
       return Constr;
 })();

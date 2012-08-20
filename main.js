@@ -171,12 +171,25 @@ window.onload = function init() {
          world.ClearForces();
          
          //Was goal
-         if (!washer.IsAlive())  {
+         if (!washer.IsAlive())  {  
                washer.Reset();
                paddle.Reset();
                enemyPaddle.Reset();
+               
+               if (leftGate.GetGoalsCount() === 5) {
+                  alert("Right Player Win!");
+                  leftGate.ResetGoalsCount();
+                  rightGate.ResetGoalsCount();
+               }
+               if (rightGate.GetGoalsCount() === 5) {
+                  alert("Left Player Win!");
+                  leftGate.ResetGoalsCount();
+                  rightGate.ResetGoalsCount();
+               }
+
                leftGateCount.innerHTML = leftGate.GetGoalsCount();
                rightGateCount.innerHTML = rightGate.GetGoalsCount();
+
          }
       };
       
