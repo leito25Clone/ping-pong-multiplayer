@@ -22,6 +22,24 @@ window.onload = function init() {
          width: 3/scale,
          height: 300/scale
       }, 4); 
+   var rightGateSeparator = new GAME.Rectangle(world, 
+      {
+         x: 570/scale,
+         y: 300/2/scale
+      },
+      {
+         width: 3/scale,
+         height: 300/scale
+      }, 4);
+   var leftGateSeparator = new GAME.Rectangle(world, 
+      {
+         x: 1,
+         y: 300/2/scale
+      },
+      {
+         width: 3/scale,
+         height: 300/scale
+      }, 4);
    var leftGate      = new GAME.Gate(world,
       {
          x: 0,
