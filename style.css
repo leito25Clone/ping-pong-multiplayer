@@ -1,0 +1,42 @@
+body {
+	background-color: white;
+	margin-left: 20px;
+	margin-right: 20px;
+}
+
+
+canvas {
+	text-align: center;
+}
+
+header h1 {
+	background-color: grey;
+	color: white;
+	text-align: center;
+	font-family: monospace;
+}
+
+footer {
+	text-align: center;
+	color:white;
+	background-color: grey;
+	margin-top: 10px;
+}
+
+div#container{
+	text-align: center;
+}
+
+span#leftCount {
+	float: left;
+	font-size: 82pt;
+	font-weight: bold;
+	vertical-align: top;
+}
+
+span#rightCount {
+	float: right;
+	font-size: 82pt;
+	font-weight: bold;
+	vertical-align: top;
+}

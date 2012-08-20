@@ -1,6 +1,7 @@
 <html>
    <head>
       <title>Ping Pong [pre-alpha verison]</title>
+      <link rel="stylesheet" type="text/css" href="style.css">
       <script type="text/javascript" src="Box2dWeb-2.1a.3/Box2dWeb-2.1.a.3.min.js"></script>
       <script type="text/javascript" src="utils.js"></script>   
       <script type="text/javascript" src="bound.js"></script>   
@@ -10,6 +11,14 @@
       <script type="text/javascript" src="main.js"></script>   
    </head>
    <body>
-      <canvas id="canvas" width="600" height="400" style="background-color:#333333;" ></canvas>
+      <header><h1>Ping Pong [pre-alpha version]</h1><header>
+      <div id="container">
+         <span id="leftCount">#</span>
+         <canvas id="canvas" width="600" height="400" style="background-color:#333333;" ></canvas>
+         <span id="rightCount">#</span>
+      </div>
+      <footer>
+         Use your mouse for control paddle.
+      </footer>
    </body>
 </html>
