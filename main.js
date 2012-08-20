@@ -45,11 +45,11 @@ window.onload = function init() {
    var listener = new Box2D.Dynamics.b2ContactListener;
     listener.BeginContact = function(contact) {
       if (contact.GetFixtureA().GetBody().GetUserData() === "rightGate") {
-         alert("Goal to Right Gate!");
+         rightGate.Goal();
          flag = true;
       }
       if (contact.GetFixtureA().GetBody().GetUserData() === "leftGate") {
-         alert("Goal to Left Gate!");
+         leftGate.Goal();
          flag = true;
       }
       
@@ -68,6 +68,12 @@ window.onload = function init() {
 
       window.setInterval(update, 1000 / 60);
          
+      //points
+      var   leftGateCount = document.getElementById("leftCount"),
+            rightGateCount = document.getElementById("rightCount");
+
+
+
       //mouse
       
       var mouseX, mouseY, mousePVec, isMouseDown, selectedBody, mouseJoint;
@@ -174,6 +180,8 @@ window.onload = function init() {
             world.DestroyBody(washer.ball);
             initBall();
             flag = false;
+            leftGateCount.innerHTML = leftGate.GetGoalsCount();
+            rightGateCount.innerHTML = rightGate.GetGoalsCount();
          }
       };
       

@@ -7,6 +7,7 @@ var b2BodyDef     = Box2D.Dynamics.b2BodyDef,
     b2Body        = Box2D.Dynamics.b2Body,
     ballDef       = new b2BodyDef,
     ballFixDef    = new b2FixtureDef,
+    ball = 0,
     init = function (radius) {
       ballDef.type = b2Body.b2_dynamicBody;
       ballFixDef.shape = new b2CircleShape(radius);
