@@ -13,9 +13,9 @@ var b2BodyDef     = Box2D.Dynamics.b2BodyDef,
         ballDef.type = b2Body.b2_dynamicBody;
         ballFixDef.shape = new b2CircleShape(radius);
         ballDef.position.Set(position.x, position.y);
-        ballFixDef.density = 10.0;
+        ballFixDef.density = 20.0;
         ballFixDef.friction = 0.4;
-        ballFixDef.restitution = 0.1;
+        ballFixDef.restitution = 0.5;
         ballFixDef.filter.maskBits = maskBits;
         ballFixDef.filter.categoryBits = categoryBits;
         ballDef.userData = name;
