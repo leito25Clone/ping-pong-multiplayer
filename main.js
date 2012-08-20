@@ -1,18 +1,62 @@
-var paddle;
-var scale = 30;
+window.onload = function init() {
+   var   b2World = Box2D.Dynamics.b2World,
+         b2Vec2 = Box2D.Common.Math.b2Vec2,
+         b2DebugDraw = Box2D.Dynamics.b2DebugDraw,
+         b2Body = Box2D.Dynamics.b2Body,
+         b2AABB = Box2D.Collision.b2AABB,
+         b2MouseJointDef = Box2D.Dynamics.Joints.b2MouseJointDef,
+         scale = GAME.SCALE,
+         flag = false;
 
+   var world      = new b2World( new b2Vec2(0, 0), true);
+   var ground     = new GAME.Bound(world, 2);
+   var washer;
+   var initBall  = function() { washer =  new GAME.Ball(world, 1, 2, 2, {x:5, y:5}); };
+   initBall();
+	var separator  = new GAME.Rectangle(world, 
+      {
+         x: (600/2)/scale,
+         y: 300/2/scale
+      },
+      {
+         width: 3/scale,
+         height: 300/scale
+      }, 4); 
+   var leftGate      = new GAME.Gate(world,
+      {
+         x: 0,
+         y: 210/scale
+      },
+      {
+         width: 3/scale,
+         height: 100/scale
+      }, 2, "leftGate");
+		
+   var rightGate      = new GAME.Gate(world,
+      {
+         x: 600/scale,
+         y: 210/scale
+      },
+      {
+         width: 3/scale,
+         height: 100/scale
+      }, 2, "rightGate");
+      
+   var listener = new Box2D.Dynamics.b2ContactListener;
+    listener.BeginContact = function(contact) {
+      if (contact.GetFixtureA().GetBody().GetUserData() === "rightGate") {
+         alert("Goal to Right Gate!");
+         flag = true;
+      }
+      if (contact.GetFixtureA().GetBody().GetUserData() === "leftGate") {
+         alert("Goal to Left Gate!");
+         flag = true;
+      }
+      
+      //alert('contact');// console.log(contact.GetFixtureA().GetBody().GetUserData());
+    }
+   world.SetContactListener(listener);
 
- window.onload = function init() {
-            
-         var world = new b2World(
-               new b2Vec2(0, 0)    //gravity
-            ,  true                 //allow sleep
-         );
-         
-     
-		 
-		var scale = 30;
-                      
       //setup debug draw
       var debugDraw = new b2DebugDraw();
       debugDraw.SetSprite(document.getElementById("canvas").getContext("2d"));
@@ -28,7 +72,7 @@ var scale = 30;
       
       var mouseX, mouseY, mousePVec, isMouseDown, selectedBody, mouseJoint;
       var canvasPosition = getElementPosition(document.getElementById("canvas"));
-      
+/*      
     var onKeyPressed = function (event) {
    	switch (event.keyCode) {
    		case 38:  //TODO: change to consts
@@ -51,7 +95,7 @@ var scale = 30;
    };
 		
    window.addEventListener('keydown', onKeyPressed, false);
-
+*/
     
     
       document.addEventListener("mousedown", function(e) {
@@ -125,6 +169,12 @@ var scale = 30;
          world.Step(1 / 60, 10, 10);
          world.DrawDebugData();
          world.ClearForces();
+         //TODO!
+         if (flag === true)  {
+            world.DestroyBody(washer.ball);
+            initBall();
+            flag = false;
+         }
       };
       
       //helpers

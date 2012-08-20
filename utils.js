@@ -17,7 +17,7 @@ GAME.namespace = function (ns_string) {
 		parts = parts.slice(1);
 	}
 
-	for (var i = 0, i < parts.length; i += 1) {
+	for (var i = 0; i < parts.length; i += 1) {
 		if (typeof parent[parts[i]] === "undefined") {
 			parent[parts[i]] = {};
 		}
@@ -25,3 +25,7 @@ GAME.namespace = function (ns_string) {
 	}
 	return parent;
 }
+
+//Consts
+GAME.namespace('GAME.SCALE');
+GAME.SCALE = 30;
