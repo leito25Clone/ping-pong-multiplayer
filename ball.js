@@ -41,6 +41,7 @@ var b2BodyDef     = Box2D.Dynamics.b2BodyDef,
     Constr.prototype.Reset = function() {
       this.init();
       this.alive = true;
+      this.world.DestroyBody(this.ball);
       this.ball = this.world.CreateBody(ballDef);
       this.ball.CreateFixture(ballFixDef);
     }

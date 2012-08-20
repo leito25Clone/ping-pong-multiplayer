@@ -172,8 +172,9 @@ window.onload = function init() {
          
          //Was goal
          if (!washer.IsAlive())  {
-               world.DestroyBody(washer.ball);
                washer.Reset();
+               paddle.Reset();
+               enemyPaddle.Reset();
                leftGateCount.innerHTML = leftGate.GetGoalsCount();
                rightGateCount.innerHTML = rightGate.GetGoalsCount();
          }
