@@ -10,9 +10,7 @@ window.onload = function init() {
 
    var world      = new b2World( new b2Vec2(0, 0), true);
    var ground     = new GAME.Bound(world, 2);
-   var washer;
-   var initBall  = function() { washer =  new GAME.Ball(world, 1, 2, 2, {x:5, y:5}); };
-   initBall();
+   var washer     = new GAME.Ball(world, 1, 2, 2, {x:300/scale, y:200/scale});
 	var separator  = new GAME.Rectangle(world, 
       {
          x: (600/2)/scale,
@@ -46,14 +44,13 @@ window.onload = function init() {
     listener.BeginContact = function(contact) {
       if (contact.GetFixtureA().GetBody().GetUserData() === "rightGate") {
          rightGate.Goal();
-         flag = true;
+         washer.Die();
+         
       }
       if (contact.GetFixtureA().GetBody().GetUserData() === "leftGate") {
          leftGate.Goal();
-         flag = true;
+         washer.Die();
       }
-      
-      //alert('contact');// console.log(contact.GetFixtureA().GetBody().GetUserData());
     }
    world.SetContactListener(listener);
 
@@ -78,31 +75,6 @@ window.onload = function init() {
       
       var mouseX, mouseY, mousePVec, isMouseDown, selectedBody, mouseJoint;
       var canvasPosition = getElementPosition(document.getElementById("canvas"));
-/*      
-    var onKeyPressed = function (event) {
-   	switch (event.keyCode) {
-   		case 38:  //TODO: change to consts
-   			console.log("Key Up Pressed!");
-   			var vel = paddle.GetLinearVelocity();
-   			vel.y = 5;
-   			paddle.SetLinearVelocity(vel);
-   			
-   			break;
-   		case 40:
-   			console.log("Key Down Pressed!");
-   			var vel = paddle.GetLinearVelocity();
-   			vel.y = -5;
-   			paddle.SetLinearVelocity(vel);
-   			break;
-   		default:
-   			console.log(event.type);
-   			break;
-   	}
-   };
-		
-   window.addEventListener('keydown', onKeyPressed, false);
-*/
-    
     
       document.addEventListener("mousedown", function(e) {
          isMouseDown = true;
@@ -175,13 +147,13 @@ window.onload = function init() {
          world.Step(1 / 60, 10, 10);
          world.DrawDebugData();
          world.ClearForces();
-         //TODO!
-         if (flag === true)  {
-            world.DestroyBody(washer.ball);
-            initBall();
-            flag = false;
-            leftGateCount.innerHTML = leftGate.GetGoalsCount();
-            rightGateCount.innerHTML = rightGate.GetGoalsCount();
+         
+         //Was goal
+         if (!washer.IsAlive())  {
+               world.DestroyBody(washer.ball);
+               washer.Reset();
+               leftGateCount.innerHTML = leftGate.GetGoalsCount();
+               rightGateCount.innerHTML = rightGate.GetGoalsCount();
          }
       };
       
