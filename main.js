@@ -10,7 +10,9 @@ window.onload = function init() {
 
    var world      = new b2World( new b2Vec2(0, 0), true);
    var ground     = new GAME.Bound(world, 2);
-   var washer     = new GAME.Ball(world, 1, 2, 2, {x:300/scale, y:200/scale});
+   var washer     = new GAME.Ball(world, 1, 2, 2, {x:300/scale, y:200/scale}, "washer");
+   var paddle     = new GAME.Ball(world, 1, 6, 6, {x:500/scale, y:200/scale}, "paddle");
+   var enemyPaddle     = new GAME.Ball(world, 1, 6, 6, {x:100/scale, y:200/scale}, "paddle");
 	var separator  = new GAME.Rectangle(world, 
       {
          x: (600/2)/scale,
@@ -42,12 +44,14 @@ window.onload = function init() {
       
    var listener = new Box2D.Dynamics.b2ContactListener;
     listener.BeginContact = function(contact) {
-      if (contact.GetFixtureA().GetBody().GetUserData() === "rightGate") {
+      if ((contact.GetFixtureA().GetBody().GetUserData() === "rightGate") 
+            && (contact.GetFixtureB().GetBody().GetUserData() === "washer")) {
          rightGate.Goal();
          washer.Die();
          
       }
-      if (contact.GetFixtureA().GetBody().GetUserData() === "leftGate") {
+      if ((contact.GetFixtureA().GetBody().GetUserData() === "leftGate") 
+         && (contact.GetFixtureB().GetBody().GetUserData() === "washer")) {
          leftGate.Goal();
          washer.Die();
       }
