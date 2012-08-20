@@ -7,6 +7,7 @@ GAME.Gate = (function () {
       gateDef    = new b2BodyDef,
       gateFixDef = new b2FixtureDef,
       scale           = GAME.SCALE,
+      goals           = 0,
       init = function (gateName) {
         gateDef.type     = b2Body.b2_staticBody;
         gateFixDef.shape = new b2PolygonShape;
@@ -22,6 +23,9 @@ GAME.Gate = (function () {
         gateFixDef.filter.categoryBits = categoryBits;
         gateDef.position.Set(position.x, position.y);
         world.CreateBody(gateDef).CreateFixture(gateFixDef);
+        this.Goal = function () {
+          this.goals+=1;
+        }
       }; 
 
       return Constr;
